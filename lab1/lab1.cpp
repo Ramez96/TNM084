@@ -40,20 +40,13 @@ void maketexture()
 	for (x = 0; x < kTextureSize; x++)
 	for (y = 0; y < kTextureSize; y++)
 	{
-	    //Change the first 2 for position and the second 2 for frequency along respective axis.
-		fx = (float)(x-kTextureSize/2.)/kTextureSize*2.;
-		fy = (float)(y-kTextureSize/2.)/kTextureSize*2.;
-		fxo = sqrt(fx*fx+fy*fy);
-		fyo = sqrt(fx*fx+fy*fy);
-		fxo = cos(fxo * ringDensity);
-		fyo = sin(fyo * ringDensity);
-		if (fxo > 1.0) fxo = 1;
-		if (fxo < -1.0) fxo = -1.0;
-		if (fyo > 1.0) fyo = 1.0;
-		if (fyo < -1.0) fyo = -1.0;
-		ptex[x][y][0] = fxo *127 + 127;
-		ptex[x][y][1] = fyo *127 + 127;
+	    //Square pattern, make eyes hurt. Change the mod to decrease frequency
+		if(x % 3 == 0) ptex[x][y][0] = 254;
+		else ptex[x][y][0] = 0;
+		if(y % 2 == 0) ptex[x][y][1] = 254;
+		else ptex[x][y][1] = 0;
 		ptex[x][y][2] = 128;
+
 	}
 }
 
