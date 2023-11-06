@@ -28,7 +28,7 @@
 #define kTextureSize 512
 GLubyte ptex[kTextureSize][kTextureSize][3];
 //Change Uniform frequency
-const float ringDensity = 30.0;
+const float ringDensity = 60.0;
 
 // Example: Radial pattern.
 void maketexture()
@@ -41,7 +41,7 @@ void maketexture()
 	for (y = 0; y < kTextureSize; y++)
 	{
 	    //Matrix
-		if(y % 24 == 0) ptex[x][y][1] = snoise2(x,y) * 254;
+		if(y % 24 == 0) ptex[x][y][1] = snoise2(x,y)*255;
 
 	}
 }
@@ -96,13 +96,13 @@ void init(void)
 	// Upload geometry to the GPU:
 
 	quad = LoadDataToModel(vertices,NULL,texCoords,NULL,indices,4,6);
-
 	// Texture unit
 	glUniform1i(glGetUniformLocation(program, "tex"), 0); // Texture unit 0
 
 // Constants common to CPU and GPU
 	glUniform1i(glGetUniformLocation(program, "displayGPUversion"), 0); // shader generation off
 	glUniform1f(glGetUniformLocation(program, "ringDensity"), ringDensity);
+	//glUniform1f(glGetUniformLocation(program, "t", glutGet(GLUT_ELAPSED_TIME)));
 
 	maketexture();
 

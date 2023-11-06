@@ -10,7 +10,7 @@ uniform sampler2D tex;
 
 uniform int displayGPUversion;
 uniform float ringDensity;
-
+float a;
 //const float ringDensity = 10.0;
 
 vec2 random2(vec2 st)
@@ -78,11 +78,17 @@ float iqnoise( in vec2 x, float u, float v )
 
 void main(void)
 {
+    float a = 0;
 	if (displayGPUversion == 1)
 	{
 		vec2 f = texCoord * 2.0 - vec2(1.0);
 		float radius = length(f); // Same as sqrt(fx*fx + fy * fy);
-		out_Color = vec4(cos(radius * ringDensity)/ 2.0 + 0.5, 0.5, sin(radius * ringDensity)/ 2.0 + 0.5, 1.0);
+		if(mod(floor(f.x*100),8) == 0){
+            out_Color = vec4(0, noise(f*50)*1, 0, 1.0);
+		}
+		else {
+		    out_Color = vec4(0, 0, 0, 1.0);
+		}
 	}
 	else
 		out_Color = texture(tex, texCoord);
