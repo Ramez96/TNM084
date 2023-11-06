@@ -40,12 +40,8 @@ void maketexture()
 	for (x = 0; x < kTextureSize; x++)
 	for (y = 0; y < kTextureSize; y++)
 	{
-	    //Square pattern, make eyes hurt. Change the mod to decrease frequency
-		if(x % 3 == 0) ptex[x][y][0] = 254;
-		else ptex[x][y][0] = 0;
-		if(y % 2 == 0) ptex[x][y][1] = 254;
-		else ptex[x][y][1] = 0;
-		ptex[x][y][2] = 128;
+	    //Matrix
+		if(y % 24 == 0) ptex[x][y][1] = snoise2(x,y) * 254;
 
 	}
 }
