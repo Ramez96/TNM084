@@ -10,7 +10,7 @@ uniform sampler2D tex;
 
 uniform int displayGPUversion;
 uniform float ringDensity;
-float a;
+uniform float t;
 //const float ringDensity = 10.0;
 
 vec2 random2(vec2 st)
@@ -84,7 +84,7 @@ void main(void)
 		vec2 f = texCoord * 2.0 - vec2(1.0);
 		float radius = length(f); // Same as sqrt(fx*fx + fy * fy);
 		if(mod(floor(f.x*100),8) == 0){
-            out_Color = vec4(0, noise(f*50)*1, 0, 1.0);
+            out_Color = vec4(0, noise(f*10*t)*1, 0, 1.0);
 		}
 		else {
 		    out_Color = vec4(0, 0, 0, 1.0);

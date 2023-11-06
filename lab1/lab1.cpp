@@ -77,6 +77,7 @@ GLuint program;
 // The quad
 Model* quad;
 
+float time;
 void init(void)
 {
 	// two vertex buffer objects, used for uploading the
@@ -100,9 +101,11 @@ void init(void)
 	glUniform1i(glGetUniformLocation(program, "tex"), 0); // Texture unit 0
 
 // Constants common to CPU and GPU
+    glutRepeatingTimer(100);
+    time = 100.0;
 	glUniform1i(glGetUniformLocation(program, "displayGPUversion"), 0); // shader generation off
 	glUniform1f(glGetUniformLocation(program, "ringDensity"), ringDensity);
-	//glUniform1f(glGetUniformLocation(program, "t", glutGet(GLUT_ELAPSED_TIME)));
+	glUniform1f(glGetUniformLocation(program, "t"), time);
 
 	maketexture();
 
@@ -137,6 +140,8 @@ void display(void)
 
 	DrawModel(quad, program, "in_Position", NULL, "in_TexCoord");
 
+    glUniform1f(glGetUniformLocation(program, "t"), (float)glutGet(GLUT_ELAPSED_TIME)/1000.0);
+
 	printError("display");
 
 	glutSwapBuffers();
@@ -150,6 +155,7 @@ int main(int argc, char *argv[])
 	glutCreateWindow ("Lab 1");
 	glutDisplayFunc(display);
 	glutKeyboardFunc(key);
+	glutRepeatingTimer(10);
 	init ();
 	glutMainLoop();
 }
