@@ -85,6 +85,21 @@ GLfloat texcoord2[] = {	50.0f, 50.0f,
 GLuint indices2[] = {	0,3,2, 0,2,1};
 
 // THIS IS WHERE YOUR WORK GOES!
+void MakeBranch(int depth,float rotAngle)
+{
+    if(depth != 0){
+        MakeBranch(depth-1,-rotAngle);
+        gluggPushMatrix();
+        gluggTranslate(0,1,0);
+        gluggRotate(rotAngle,0,0,1);
+        gluggScale(0.8,0.8,0.8);
+        MakeBranch(depth-1,rotAngle);
+        MakeBranch(depth-1,-rotAngle);
+        MakeCylinderAlt(20,1,0.1,0.1);
+        gluggPopMatrix();
+    }
+
+}
 
 gluggModel MakeTree()
 {
@@ -93,16 +108,21 @@ gluggModel MakeTree()
 	gluggSetTexCoordName("inTexCoord");
 
 	gluggBegin(GLUGG_TRIANGLES);
-
 	// Between gluggBegin and gluggEnd, call MakeCylinderAlt plus glugg transformations
 	// to create a tree.
 
 	MakeCylinderAlt(20, 2, 0.1, 0.15);
+	//gluggPushMatrix();
+    gluggTranslate(0.0f,1.0f, 0.0f);
+    //gluggRotate(1.0,0,0,1);
+    //MakeCylinderAlt(20,3,0.1,0.1);
+    MakeBranch(8,0.5);
 
 	return gluggBuildModel(0);
 }
 
 gluggModel tree;
+
 
 void reshape(int w, int h)
 {
@@ -153,6 +173,7 @@ void init(void)
 	LoadTGATextureSimple("bark2.tga", &barktex);
 
 	tree = MakeTree();
+
 
 	printError("init arrays");
 }
