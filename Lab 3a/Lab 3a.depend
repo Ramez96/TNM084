@@ -161,13 +161,14 @@
 
 1621844928 c:\users\ingem\onedrive\desktop\labbar 2023\tnm084 labs\common\windows\microglut.h
 
-1700488706 source:c:\users\ramri882\tnm084\lab 3a\lab3a.cpp
+1700492358 source:c:\users\ramri882\tnm084\lab 3a\lab3a.cpp
 	"MicroGlut.h"
 	"GL_utilities.h"
 	"VectorUtils4.h"
 	"LittleOBJLoaderX.h"
 	"LoadTGA.h"
 	"glugg.h"
+	<math.h>
 
 1700482090 c:\users\ramri882\tnm084\common\windows\microglut.h
 

@@ -11,6 +11,9 @@
 #include "LittleOBJLoaderX.h"
 #include "LoadTGA.h"
 #include "glugg.h"
+#include <math.h>
+
+#define PI 3.14159265
 
 // uses framework OpenGL
 // uses framework Cocoa
@@ -85,17 +88,23 @@ GLfloat texcoord2[] = {	50.0f, 50.0f,
 GLuint indices2[] = {	0,3,2, 0,2,1};
 
 // THIS IS WHERE YOUR WORK GOES!
+float randomiser(){
+
+    float r = ((double) rand() / (RAND_MAX)) +1;
+    r = (2*r -1);
+    return r;
+}
 void MakeBranch(int depth,float rotAngle)
 {
     if(depth != 0){
-        MakeBranch(depth-1,-rotAngle);
         gluggPushMatrix();
         gluggTranslate(0,1,0);
-        gluggRotate(rotAngle,0,0,1);
+        gluggRotate(rotAngle,sin(rand()), sin(rand()), sin(rand()));
         gluggScale(0.8,0.8,0.8);
-        MakeBranch(depth-1,rotAngle);
+        MakeCylinderAlt(20,1,0.1,0.15);
         MakeBranch(depth-1,-rotAngle);
-        MakeCylinderAlt(20,1,0.1,0.1);
+        MakeBranch(depth-1,rotAngle);
+
         gluggPopMatrix();
     }
 
@@ -116,8 +125,8 @@ gluggModel MakeTree()
     gluggTranslate(0.0f,1.0f, 0.0f);
     //gluggRotate(1.0,0,0,1);
     //MakeCylinderAlt(20,3,0.1,0.1);
-    MakeBranch(8,0.5);
-
+    MakeBranch(10,0.4);
+    MakeBranch(10,-0.8);
 	return gluggBuildModel(0);
 }
 
