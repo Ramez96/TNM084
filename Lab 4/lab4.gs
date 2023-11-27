@@ -3,7 +3,7 @@
 layout(triangles) in;
 // Use line_strip for visualization and triangle_strip for solids
 //layout(triangle_strip, max_vertices = 3) out;
-layout(line_strip, max_vertices = 3) out;
+layout(triangle_strip, max_vertices = 3) out;
 in vec2 teTexCoord[3];
 in vec3 teNormal[3];
 out vec2 gsTexCoord;
@@ -79,6 +79,10 @@ void computeVertex(int nr)
 	// Add interesting code here
 	//Each vertex point has the same distance to center.
 	p = normalize(p);
+	p = p * (1 + 0.2 * noise(p* 2));
+	p = p * (1 + 0.2 * noise(p* 4));
+	p = p * (1 + 0.2 * noise(p* 16));
+
 	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(p, 1.0);
 
     gsTexCoord = teTexCoord[0];
