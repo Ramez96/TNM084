@@ -79,9 +79,9 @@ void computeVertex(int nr)
 	// Add interesting code here
 	//Each vertex point has the same distance to center.
 	p = normalize(p);
-	p = p * (1 + 0.2 * noise(p* 2));
-	p = p * (1 + 0.2 * noise(p* 4));
-	p = p * (1 + 0.2 * noise(p* 16));
+	p = p * (1 + 0.3 * noise(p * 1.5));
+	p = p * (1 + 0.2 * noise(p* 3));
+	p = p * (1 + 0.2 * noise(p* 6));
 
 	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(p, 1.0);
 
