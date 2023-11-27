@@ -76,6 +76,9 @@ void computeVertex(int nr)
 	vec3 p, v1, v2, v3, p1, p2, p3, s1, s2, n;
 
 	p = vec3(gl_in[nr].gl_Position);
+
+
+
 	// Add interesting code here
 	//Each vertex point has the same distance to center.
 	p = normalize(p);
@@ -85,9 +88,38 @@ void computeVertex(int nr)
 
 	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(p, 1.0);
 
+    v1 = cross(vec3(0,1,0),p);
+    v2 = cross(v1,p);
+    v3 = -v1 + v2;
+
+    v1 = normalize(v1);
+    v2 = normalize(v2);
+    v3 = normalize(v3);
+
+    p1 = p + v1 * 0.1;
+    p1 = p1 * (1 + 0.3 * noise(p1 * 1.5));
+	p1 = p1 * (1 + 0.2 * noise(p1* 3));
+	p1 = p1 * (1 + 0.2 * noise(p1* 6));
+
+
+    p2 = p + v2*0.1;
+    p2 = p2 * (1 + 0.3 * noise(p2 * 1.5));
+	p2 = p2 * (1 + 0.2 * noise(p2 * 3));
+	p2 = p2 * (1 + 0.2 * noise(p2 * 6));
+
+    p3 = p + v3 *0.1;
+    p3 = p3 * (1 + 0.3 * noise(p3* 1.5));
+	p3 = p3 * (1 + 0.2 * noise(p3 * 3));
+	p3 = p3 * (1 + 0.2 * noise(p3 * 6));
+
+    s1 = p3-p1;
+    s2 = p3-p2;
+
+    n = cross(s2,s1);
+
     gsTexCoord = teTexCoord[0];
 
-	n = teNormal[nr]; // This is not the normal you are looking for. Move along!
+	//n = teNormal[nr]; // This is not the normal you are looking for. Move along!
     gsNormal = mat3(camMatrix * mdlMatrix) * n;
     EmitVertex();
 }
