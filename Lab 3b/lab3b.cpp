@@ -58,7 +58,7 @@ void MakeTerrain()
 
 		// squared distance to center
 		float h = ( (x - kTerrainSize/2)/bumpWidth * (x - kTerrainSize/2)/bumpWidth +  (z - kTerrainSize/2)/bumpWidth * (z - kTerrainSize/2)/bumpWidth );
-		float y =  5*bumpHeight*noise2(x/6.3, z/6.3);
+		float y =  5*bumpHeight*noise2(x/6.2, z/6.2);
 
 		vertices[ix] = vec3(x * kPolySize, y, z * kPolySize);
 		texCoords[ix] = vec2(x, z);
@@ -82,12 +82,29 @@ void MakeTerrain()
 		indices[q*2*3+5] = x + (z+1) * kTerrainSize;
 	}
 
+	int left, right, down, up = 0;
 	// Make normal vectors
 	// TO DO: This is where you calculate normal vectors
 	for (int x = 0; x < kTerrainSize; x++)
-	for (int z = 0; z < kTerrainSize; z++)
-	{
-		normals[z * kTerrainSize + x] = SetVec3(0,1,0);
+	for (int z = 0; z < kTerrainSize; z++){
+
+        left = x-1;
+        right = x+1;
+        down = z-1;
+        up = z+1;
+
+        if(left < 0) left = x;
+        if(right > 32) right = x;
+        if(up > 32) up = z;
+        if(down < 0) down = z;
+
+        float deltaYh = vertices[z * kTerrainSize + right].y - vertices[z * kTerrainSize + left].y;
+        float deltaYv = vertices[up * kTerrainSize + x].y - vertices[down * kTerrainSize + x].y;
+
+        vec3 horizontal = normalize(SetVec3(right-left,deltaYh,0));
+        vec3 vertical = normalize(SetVec3(0,deltaYv, up - down));
+
+		normals[z * kTerrainSize + x] = CrossProduct(vertical, horizontal);
 	}
 }
 
