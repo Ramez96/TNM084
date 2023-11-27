@@ -77,6 +77,8 @@ void computeVertex(int nr)
 
 	p = vec3(gl_in[nr].gl_Position);
 	// Add interesting code here
+	//Each vertex point has the same distance to center.
+	p = normalize(p);
 	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(p, 1.0);
 
     gsTexCoord = teTexCoord[0];
