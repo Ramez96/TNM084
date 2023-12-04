@@ -82,9 +82,9 @@ void computeVertex(int nr)
 	// Add interesting code here
 	//Each vertex point has the same distance to center.
 	p = normalize(p);
-	p = p * (1 + 0.3 * noise(p * 1.5));
+	p = p * (1 + 0.4 * noise(p * 1.5));
 	p = p * (1 + 0.2 * noise(p* 3));
-	p = p * (1 + 0.2 * noise(p* 6));
+	p = p * (1 + 0.1 * noise(p* 6));
 
 	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(p, 1.0);
 
@@ -96,21 +96,21 @@ void computeVertex(int nr)
     v2 = normalize(v2);
     v3 = normalize(v3);
 
-    p1 = p + v1 * 0.1;
-    p1 = p1 * (1 + 0.3 * noise(p1 * 1.5));
+    p1 = p + v1 * 0.01;
+    p1 = p1 * (1 + 0.4 * noise(p1 * 1.5));
 	p1 = p1 * (1 + 0.2 * noise(p1* 3));
-	p1 = p1 * (1 + 0.2 * noise(p1* 6));
+	p1 = p1 * (1 + 0.1 * noise(p1* 6));
 
 
-    p2 = p + v2*0.1;
-    p2 = p2 * (1 + 0.3 * noise(p2 * 1.5));
+    p2 = p + v2*0.01;
+    p2 = p2 * (1 + 0.4 * noise(p2 * 1.5));
 	p2 = p2 * (1 + 0.2 * noise(p2 * 3));
-	p2 = p2 * (1 + 0.2 * noise(p2 * 6));
+	p2 = p2 * (1 + 0.1 * noise(p2 * 6));
 
-    p3 = p + v3 *0.1;
-    p3 = p3 * (1 + 0.3 * noise(p3* 1.5));
+    p3 = p + v3 *0.01;
+    p3 = p3 * (1 + 0.4 * noise(p3* 1.5));
 	p3 = p3 * (1 + 0.2 * noise(p3 * 3));
-	p3 = p3 * (1 + 0.2 * noise(p3 * 6));
+	p3 = p3 * (1 + 0.1 * noise(p3 * 6));
 
     s1 = p3-p1;
     s2 = p3-p2;
